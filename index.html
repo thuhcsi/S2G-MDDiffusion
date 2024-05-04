@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Motion Decoupled Diffusion generates realistic gesture videos corresponding to speech.">
+  <meta name="keywords" content="Diffusion Model, Co-Speech Gesture, Video Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Co-Speech Gesture Video Generation via Motion-Decoupled Diffusion Model</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.ico">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Co-Speech Gesture Video Generation via Motion-Decoupled Diffusion Model</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Xu He</a><sup>1</sup>,
+            </span>&nbsp;
+            <span class="author-block">
+              Qiaochu Huang</a><sup>1</sup>,
+            </span>&nbsp;
+            <span class="author-block">
+              Zhensong Zhang</a><sup>2</sup>,
+            </span>&nbsp;
+            <span class="author-block">
+              Zhiwei Lin</a><sup>1</sup>,
+            </span>&nbsp;
+            <span class="author-block">
+              Zhiyong Wu</a><sup>1,4</sup>, 
+            </span>
+            <br>
+            <span class="author-block">
+              Sicheng Yang</a><sup>1</sup>,
+            </span>&nbsp;
+            <span class="author-block">
+              Minglei Li</a><sup>3</sup>, 
+            </span>&nbsp;
+            <span class="author-block">
+              Zhiyi Chen</a><sup>3</sup>, 
+            </span>&nbsp;
+            <span class="author-block">
+              Songcen Xu</a><sup>2</sup>, 
+            </span>&nbsp;
+            <span class="author-block">
+              Xiaofei Wu</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Shenzhen International Graduate School, Tsinghua University,</span> &nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Huawei Noah's Ark Lab,</span>
+            <span class="author-block"><sup>3</sup>Huawei Cloud Computing Technologies Co., Ltd,</span> &nbsp;&nbsp;
+            <span class="author-block"><sup>4</sup>The Chinese University of Hong Kong</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2404.01862"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2404.01862"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/thuhcsi/S2G-MDDiffusion"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="teaser image" height="100%">
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" controls playsinline height="100%">
+            <source src="./static/videos/showcase/chemistry1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" controls playsinline height="100%">
+            <source src="./static/videos/showcase/jon1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" controls playsinline height="100%">
+            <source src="static/videos/showcase/oliver1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video4">
+          <video poster="" id="video4" controls playsinline height="100%">
+            <source src="static/videos/showcase/seth1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video5">
+          <video poster="" id="video" controls playsinline height="100%">
+            <source src="./static/videos/showcase/chemistry2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video6">
+          <video poster="" id="video6" controls playsinline height="100%">
+            <source src="./static/videos/showcase/jon2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video7">
+          <video poster="" id="video7" controls playsinline height="100%">
+            <source src="static/videos/showcase/oliver2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video8">
+          <video poster="" id="video8" controls playsinline height="100%">
+            <source src="static/videos/showcase/seth2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Co-speech gestures, if presented in the lively form of videos, can achieve superior visual effects
+             in human-machine interaction. While previous works mostly generate structural human skeletons, resulting
+              in the omission of appearance information, we focus on the direct generation of audio-driven co-speech 
+              gesture videos in this work. There are two main challenges: 1) A suitable motion feature is needed to 
+              describe complex human movements with crucial appearance information. 2) Gestures and speech exhibit 
+              inherent dependencies and should be temporally aligned even of arbitrary length.  
+              To solve these problems, we present a novel motion-decoupled framework to generate co-speech gesture videos. 
+              Specifically, we first introduce a well-designed nonlinear TPS transformation to obtain latent motion features 
+              preserving essential appearance information. Then a transformer-based diffusion model is proposed to learn the 
+              temporal correlation between gestures and speech, and performs generation in the latent motion space, followed 
+              by an optimal motion selection module to produce long-term coherent and consistent gesture videos. For better 
+              visual perception, we further design a refinement network focusing on missing details of certain areas. Extensive 
+              experimental results show that our proposed framework significantly outperforms existing approaches in both 
+              motion and video-related evaluations.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Pipeline. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Pipeline</h2>
+          <img src="static/images/pipeline.png" alt="teaser image" height="100%">
+          <h2 class="content text-left truncate">
+            <span class="is-bold">Gesture Video Generation Pipeline</span> of our proposed framework is composed of three core components:
+            1) the motion decou-pling module (<span class="color-green">green</span>) extracts latent motion features from videos with TPS transformations and synthesizes image frames; 
+            2) the latent motion diffusion model (<span class="color-pink">pink</span>) generates motion features conditioned on the speech; 
+            3) the refinement network (<span class="color-blue">blue</span>) restore missing details and produce the final fine-grained video.
+          </h2>
+      </div>
+      
+    </div>
+    <!--/ Pipeline. -->
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Animation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Presentation Video & More Visual Results <span class="color-red"><br>(Under Construction...)</span></h2>
+        <!-- Re-rendering. -->
+        <!-- <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="100%">
+            <source src="static/videos/supplementary_video.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Concurrent Work. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Acknowledgements</h2>
+
+        <div class="content has-text-justified">
+          <p>
+             We are grateful to the following repositories for their open research and exploration, which helped us significantly in this work.
+          </p>
+          <p>
+             <a href="https://github.com/yoyo-nb/Thin-Plate-Spline-Motion-Model">Thin-Plate Spline Motion Model for Image Animation</a>,
+          </p>
+          <p>
+            <a href="https://github.com/Stanford-TML/EDGE">EDGE: Editable Dance Generation From Music</a>,
+          </p>
+          <p>
+            <a href="https://github.com/weizequan/LGNet">Image Inpainting with Local and
+              Global Refinement</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{he2024co,
+  title={Co-Speech Gesture Video Generation via Motion-Decoupled Diffusion Model},
+  author={He, Xu and Huang, Qiaochu and Zhang, Zhensong and Lin, Zhiwei and Wu, Zhiyong and Yang, Sicheng and Li, Minglei and Chen, Zhiyi and Xu, Songcen and Wu, Xiaofei},
+  journal={arXiv preprint arXiv:2404.01862},
+  year={2024}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2404.01862">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/thuhcsi/S2G-MDDiffusion" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This page is borrowed from the <a
+            href="https://github.com/nerfies/nerfies.github.io">source code</a>. We thank the author for sharing it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
