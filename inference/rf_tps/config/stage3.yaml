@@ -1,0 +1,38 @@
+model_params:
+  common_params:
+    num_kp_per_tps: 5
+    num_tps: 20
+    num_channels: 3
+    bg: False
+    multi_mask: True
+  generator_params:
+    block_expansion: 64
+    max_features: 512
+    num_down_blocks: 3
+  dense_motion_params:
+    block_expansion: 64
+    max_features: 1024
+    num_blocks: 5
+    scale_factor: 0.25
+  avd_network_params:
+    id_bottle_size: 128
+    pose_bottle_size: 128
+  e2e_generator_params:
+    input_nc: 4
+    output_nc: 3
+    ngf: 64
+    norm_type: 'batch'
+    init_type: 'normal'
+    init_gain: 0.02
+  gan_discriminator_params:
+    in_channels: 3
+    init_type: 'normal'
+    init_gain: 0.02
+
+visualizer_params:
+  kp_size: 5
+  draw_border: True
+  colormap: 'gist_rainbow'
+
+seed: 224
+save_fps: 25

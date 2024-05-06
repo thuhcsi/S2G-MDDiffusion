@@ -1,0 +1,91 @@
+dataset_params:
+  root_dir: ../data-preparation/data/img
+  hand_box_dir: ./bbox
+  frame_shape: null
+  id_sampling: False
+  augmentation_params:
+    flip_param:
+      horizontal_flip: True
+      time_flip: True
+    jitter_param:
+      brightness: 0.1
+      contrast: 0.1
+      saturation: 0.1
+      hue: 0.1
+
+model_params:
+  common_params:
+    num_kp_per_tps: 5
+    num_tps: 20
+    num_channels: 3
+    bg: False
+    multi_mask: True
+  generator_params:
+    block_expansion: 64
+    max_features: 512
+    num_down_blocks: 3
+  dense_motion_params:
+    block_expansion: 64
+    max_features: 1024
+    num_blocks: 5
+    scale_factor: 0.25
+  avd_network_params:
+    id_bottle_size: 128
+    pose_bottle_size: 128
+  e2e_generator_params:
+    input_nc: 4
+    output_nc: 3
+    ngf: 64
+    norm_type: 'batch'
+    init_type: 'normal'
+    init_gain: 0.02
+  gan_discriminator_params:
+    in_channels: 3
+    init_type: 'normal'
+    init_gain: 0.02
+
+train_params:
+  gan: True
+  num_epochs: 2000
+  num_repeats: 10
+  gan_start_epoch: 10
+  epoch_milestones: [200, 300, 400]
+  lr_generator: 6.0e-4
+  lr_discriminator: 1.0e-4
+  batch_size: 20
+  scales: [1, 0.5, 0.25, 0.125]
+  dataloader_workers: 0
+  checkpoint_freq: 20
+  dropout_epoch: 35
+  dropout_maxp: 0.5
+  dropout_startp: 0.0
+  dropout_inc_epoch: 10
+  bg_start: 0
+  transform_params:
+    sigma_affine: 0.05
+    sigma_tps: 0.005
+    points_tps: 5
+  loss_weights:
+    perceptual: [10, 10, 10, 10, 10]
+    equivariance_value: 10
+    warp_loss: 10
+    bg: 10
+    hand: 100
+
+train_avd_params:
+  num_epochs: 30
+  num_repeats: 500
+  batch_size: 256
+  dataloader_workers: 24
+  checkpoint_freq: 10
+  epoch_milestones: [20, 25]
+  lr: 1.0e-3
+  lambda_shift: 1
+  random_scale: 0.25
+
+visualizer_params:
+  kp_size: 5
+  draw_border: True
+  colormap: 'gist_rainbow'
+
+seed: 224
