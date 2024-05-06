@@ -14,7 +14,7 @@
     ·
     <br><strong>Sicheng Yang</strong></a><sup>1</sup>
     ·  
-    ><strong>Minglei Li</strong></a><sup>3</sup>
+    <strong>Minglei Li</strong></a><sup>3</sup>
     ·
     <strong>Zhiyi Chen</strong></a><sup>3</sup>
     ·
@@ -117,14 +117,14 @@ cd stage1
 Then run the following code to train the motion decoupling module:
 
 ```bash 
-accelerate launch run.py --config config/pats-256.yaml --mode train
+accelerate launch run.py --config config/stage1.yaml --mode train
 ```
 
 Checkpoints be saved in the ```log``` folder, denoted as ```stage1.pth.tar```, which will be used to extract the keypoint features:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python run_extraction.py --config config/pats-256.yaml --mode extraction --checkpoint log/stage1.pth.tar --device_ids 0 --train
-CUDA_VISIBLE_DEVICES=0 python run_extraction.py --config config/pats-256.yaml --mode extraction --checkpoint log/stage1.pth.tar --device_ids 0 --test
+CUDA_VISIBLE_DEVICES=0 python run_extraction.py --config config/stage1.yaml --mode extraction --checkpoint log/stage1.pth.tar --device_ids 0 --train
+CUDA_VISIBLE_DEVICES=0 python run_extraction.py --config config/stage1.yaml --mode extraction --checkpoint log/stage1.pth.tar --device_ids 0 --test
 ```
 
 And the extracted motion features will save in the ```feature``` folder.
@@ -170,7 +170,7 @@ Now you can train the refinement network:
 accelerate launch run.py --config config/stage3.yaml --mode train --tps_checkpoint ../stage1/log/stage1.pth.tar
 ```
 
-## Citing
+## ✏️ Citing
 If you find our work useful, please consider citing:
 ```BibTeX
 @article{he2024co,
@@ -181,7 +181,7 @@ If you find our work useful, please consider citing:
 }
 ```
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 Our code follows several excellent repositories. We appreciate them for making their codes available to the public.
 * [Thin-Plate Spline Motion Model for Image Animation](https://github.com/yoyo-nb/Thin-Plate-Spline-Motion-Model)

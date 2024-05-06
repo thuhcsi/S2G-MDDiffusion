@@ -11,7 +11,7 @@ from accelerate.state import AcceleratorState
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from dataset.dataset import GestureDataset
+from dataset.gesture_dataset import GestureDataset
 from dataset.preprocess import increment_path
 from model.adan import Adan
 from model.diffusion import GestureDiffusion
