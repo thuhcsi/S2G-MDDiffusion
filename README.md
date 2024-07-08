@@ -173,10 +173,11 @@ accelerate launch run.py --config config/stage3.yaml --mode train --tps_checkpoi
 ## ✏️ Citing
 If you find our work useful, please consider citing:
 ```BibTeX
-@article{he2024co,
+@inproceedings{he2024co,
   title={Co-Speech Gesture Video Generation via Motion-Decoupled Diffusion Model},
   author={He, Xu and Huang, Qiaochu and Zhang, Zhensong and Lin, Zhiwei and Wu, Zhiyong and Yang, Sicheng and Li, Minglei and Chen, Zhiyi and Xu, Songcen and Wu, Xiaofei},
-  journal={arXiv preprint arXiv:2404.01862},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={2263--2273},
   year={2024}
 }
 ```
